@@ -1,5 +1,6 @@
 services:
   zjadmin:
+    image: zjadmin:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: Dockerfile
