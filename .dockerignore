@@ -1,0 +1,17 @@
+node_modules/
+.git/
+.gitignore
+*.md
+*.db
+*.db-shm
+*.db-wal
+banner-colors.js
+header-csharp.txt
+header-vue-js.txt
+spec.md
+Jenkinsfile
+.idea/
+.vs/
+.vscode/
+backend/**/bin/
+backend/**/obj/
