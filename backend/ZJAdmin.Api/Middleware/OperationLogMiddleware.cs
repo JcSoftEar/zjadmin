@@ -113,6 +113,7 @@ public class OperationLogMiddleware
             "permissions" => "权限管理",
             "operation-logs" => "操作日志",
             "exception-logs" => "异常日志",
+            "config" => "系统设置",
             _ => "其他"
         };
 

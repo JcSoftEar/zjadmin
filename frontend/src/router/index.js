@@ -37,6 +37,12 @@ const routes = [
         meta: { title: '权限管理', icon: 'Lock', permission: 'system:permission:query' }
       },
       {
+        path: 'system/settings',
+        name: 'Settings',
+        component: () => import('../views/system/settings/index.vue'),
+        meta: { title: '系统设置', icon: 'Tools', permission: 'system:config:query' }
+      },
+      {
         path: 'logs/operation',
         name: 'OperationLogs',
         component: () => import('../views/logs/operation/index.vue'),

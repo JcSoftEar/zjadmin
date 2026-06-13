@@ -45,7 +45,8 @@ const menuItems = computed(() => {
       children: [
         { path: '/system/users', meta: { title: '用户管理', icon: 'User', permission: 'system:user:query' } },
         { path: '/system/roles', meta: { title: '角色管理', icon: 'Avatar', permission: 'system:role:query' } },
-        { path: '/system/permissions', meta: { title: '权限管理', icon: 'Lock', permission: 'system:permission:query' } }
+        { path: '/system/permissions', meta: { title: '权限管理', icon: 'Lock', permission: 'system:permission:query' } },
+        { path: '/system/settings', meta: { title: '系统设置', icon: 'Tools', permission: 'system:config:query' } }
       ]
     },
     {

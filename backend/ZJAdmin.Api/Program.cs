@@ -56,6 +56,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<PermissionService>();
 builder.Services.AddScoped<LogService>();
+builder.Services.AddScoped<ConfigService>();
 
 // Permission filter as scoped (since it depends on AuthService)
 builder.Services.AddScoped<PermissionAuthorizationFilter>();

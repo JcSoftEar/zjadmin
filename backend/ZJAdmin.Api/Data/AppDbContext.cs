@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
     public DbSet<OperationLog> OperationLogs => Set<OperationLog>();
     public DbSet<ExceptionLog> ExceptionLogs => Set<ExceptionLog>();
+    public DbSet<Config> Configs => Set<Config>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +22,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
         modelBuilder.Entity<Role>().HasIndex(r => r.Code).IsUnique();
         modelBuilder.Entity<Permission>().HasIndex(p => p.Code).IsUnique();
+        modelBuilder.Entity<Config>().HasIndex(c => c.ConfigKey).IsUnique();
 
         // Composite indexes
         modelBuilder.Entity<UserRole>().HasIndex(ur => new { ur.UserId, ur.RoleId }).IsUnique();
@@ -64,7 +66,11 @@ public class AppDbContext : DbContext
             new Permission { Id = 21, ParentId = 6, Name = "查询操作日志", Code = "logs:operation:query", Type = 1, Sort = 0, Visible = 0, CreateTime = now },
             new Permission { Id = 22, ParentId = 6, Name = "删除操作日志", Code = "logs:operation:delete", Type = 1, Sort = 1, Visible = 0, CreateTime = now },
             new Permission { Id = 23, ParentId = 7, Name = "查询异常日志", Code = "logs:exception:query", Type = 1, Sort = 0, Visible = 0, CreateTime = now },
-            new Permission { Id = 24, ParentId = 7, Name = "删除异常日志", Code = "logs:exception:delete", Type = 1, Sort = 1, Visible = 0, CreateTime = now }
+            new Permission { Id = 24, ParentId = 7, Name = "删除异常日志", Code = "logs:exception:delete", Type = 1, Sort = 1, Visible = 0, CreateTime = now },
+            // System settings
+            new Permission { Id = 25, ParentId = 1, Name = "系统设置", Code = "system:config", Type = 0, Path = "/system/settings", Component = "system/settings/index", Icon = "Tools", Sort = 4, Visible = 1, CreateTime = now },
+            new Permission { Id = 26, ParentId = 25, Name = "查询系统设置", Code = "system:config:query", Type = 1, Sort = 0, Visible = 0, CreateTime = now },
+            new Permission { Id = 27, ParentId = 25, Name = "编辑系统设置", Code = "system:config:edit", Type = 1, Sort = 1, Visible = 0, CreateTime = now }
         );
 
         // Roles
@@ -83,12 +89,20 @@ public class AppDbContext : DbContext
             new UserRole { Id = 1, UserId = 1, RoleId = 1 }
         );
 
-        // Role-Permission assignment (super_admin gets all permissions 1-24)
-        for (long i = 1; i <= 24; i++)
+        // Role-Permission assignment (super_admin gets all permissions 1-27)
+        for (long i = 1; i <= 27; i++)
         {
             modelBuilder.Entity<RolePermission>().HasData(
                 new RolePermission { Id = i, RoleId = 1, PermissionId = i }
             );
         }
+
+        // Config seed data
+        modelBuilder.Entity<Config>().HasData(
+            new Config { Id = 1, ConfigKey = "site_title", ConfigValue = "ZJAdmin 最简后台", Description = "网站标题", CreateTime = now },
+            new Config { Id = 2, ConfigKey = "site_keywords", ConfigValue = "ZJAdmin,最简后台,后台管理,RBAC", Description = "网站关键词", CreateTime = now },
+            new Config { Id = 3, ConfigKey = "site_icp", ConfigValue = "", Description = "备案信息", CreateTime = now },
+            new Config { Id = 4, ConfigKey = "site_copyright", ConfigValue = "Copyright © 2026 ZJAdmin. All rights reserved.", Description = "版权信息", CreateTime = now }
+        );
     }
 }
