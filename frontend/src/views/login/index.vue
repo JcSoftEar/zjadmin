@@ -23,6 +23,7 @@
       </el-form>
       <div class="login-footer" v-if="appStore.config.site_copyright || appStore.config.site_icp">
         <span class="copyright">{{ appStore.config.site_copyright }}</span>
+        <a class="github" href="https://github.com/JcSoftEar/zjadmin" target="_blank">GitHub: github.com/JcSoftEar/zjadmin</a>
         <a v-if="appStore.config.site_icp" class="icp" href="https://beian.miit.gov.cn/" target="_blank">
           {{ appStore.config.site_icp }}
         </a>
@@ -148,6 +149,16 @@ async function handleLogin() {
 }
 
 .login-footer .icp:hover {
+  color: #409eff;
+}
+
+.login-footer .github {
+  display: block;
+  color: #909399;
+  text-decoration: none;
+}
+
+.login-footer .github:hover {
   color: #409eff;
 }
 </style>

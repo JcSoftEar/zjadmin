@@ -14,6 +14,7 @@
       </div>
       <div class="footer" v-if="appStore.config.site_copyright || appStore.config.site_icp">
         <span>{{ appStore.config.site_copyright }}</span>
+        <a href="https://github.com/JcSoftEar/zjadmin" target="_blank">GitHub</a>
         <a v-if="appStore.config.site_icp" href="https://beian.miit.gov.cn/" target="_blank">
           {{ appStore.config.site_icp }}
         </a>
