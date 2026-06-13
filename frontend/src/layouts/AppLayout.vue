@@ -12,6 +12,12 @@
       <div class="main-content">
         <router-view />
       </div>
+      <div class="footer" v-if="appStore.config.site_copyright || appStore.config.site_icp">
+        <span>{{ appStore.config.site_copyright }}</span>
+        <a v-if="appStore.config.site_icp" href="https://beian.miit.gov.cn/" target="_blank">
+          {{ appStore.config.site_icp }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +36,7 @@ onMounted(async () => {
   if (authStore.token) {
     await authStore.fetchProfile()
   }
+  appStore.fetchConfig()
 })
 </script>
 
@@ -85,5 +92,26 @@ onMounted(async () => {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+}
+
+.footer {
+  text-align: center;
+  padding: 12px 20px;
+  font-size: 12px;
+  color: #909399;
+  background: #fff;
+  border-top: 1px solid #e4e7ed;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer a {
+  color: #909399;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #409eff;
 }
 </style>

@@ -21,6 +21,12 @@
           </el-button>
         </el-form-item>
       </el-form>
+      <div class="login-footer" v-if="appStore.config.site_copyright || appStore.config.site_icp">
+        <span class="copyright">{{ appStore.config.site_copyright }}</span>
+        <a v-if="appStore.config.site_icp" class="icp" href="https://beian.miit.gov.cn/" target="_blank">
+          {{ appStore.config.site_icp }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -29,10 +35,12 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../../stores/auth'
+import { useAppStore } from '../../stores/app'
 import { User, Lock } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const appStore = useAppStore()
 const formRef = ref(null)
 const loading = ref(false)
 const remember = ref(false)
@@ -48,6 +56,7 @@ const rules = {
 }
 
 onMounted(() => {
+  appStore.fetchConfig()
   const saved = localStorage.getItem('rememberedUser')
   if (saved) {
     const data = JSON.parse(saved)
@@ -119,5 +128,26 @@ async function handleLogin() {
 
 .login-btn {
   width: 100%;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 12px;
+  color: #909399;
+  line-height: 1.8;
+}
+
+.login-footer .copyright {
+  display: block;
+}
+
+.login-footer .icp {
+  color: #909399;
+  text-decoration: none;
+}
+
+.login-footer .icp:hover {
+  color: #409eff;
 }
 </style>
