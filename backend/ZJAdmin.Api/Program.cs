@@ -1,3 +1,21 @@
+/* ===========================================================================
+ *  ____________/\\\____        ______/\\\_        __/\\\\\\\\\\\\\\\_
+ *  __________/\\\\\____        __/\\\\\\\_        _\/////////////\\\_
+ *   ________/\\\/\\\____        _\/////\\\_        ____________/\\\/__
+ *    ______/\\\/\/\\\____        _____\/\\\_        __________/\\\/____
+ *     ____/\\\/__\/\\\____        _____\/\\\_        ________/\\\/______
+ *      __/\\\\\\\\\\\\\\\\_        _____\/\\\_        ______/\\\/________
+ *       _\///////////\\\//__        _____\/\\\_        ____/\\\/__________
+ *        ___________\/\\\____        _____\/\\\_        __/\\\/____________
+ *         ___________\///_____        _____\///_         _\///______________
+ * ===========================================================================
+ *  Author   : James YinG
+ *  Email    : james@taogame.com
+ *  业务：软件开发 | 功能定制 | Bug修复 | 项目部署
+ *  专业接单，品质保障，欢迎合作！
+ * ===========================================================================
+ */
+
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +28,32 @@ using ZJAdmin.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Startup banner
+var esc = "\x1b";
+Console.WriteLine();
+Console.WriteLine($@"{esc}[38;2;41;105;225m{esc}[1m____________/\\\____                ______/\\\_                __/\\\\\\\\\\\\\\\_        {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;52;122;235m{esc}[1m __________/\\\\\____                __/\\\\\\\_                _\/////////////\\\_       {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;70;140;240m{esc}[1m  ________/\\\/\\\____                _\/////\\\_                ____________/\\\/__      {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;100;110;235m{esc}[1m   ______/\\\/\/\\\____                _____\/\\\_                __________/\\\/____     {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;145;82;215m{esc}[1m    ____/\\\/__\/\\\____                _____\/\\\_                ________/\\\/______    {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;185;60;180m{esc}[1m     __/\\\\\\\\\\\\\\\\_                _____\/\\\_                ______/\\\/________   {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;215;50;140m{esc}[1m      _\///////////\\\//__                _____\/\\\_                ____/\\\/__________  {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;238;58;90m{esc}[1m       ___________\/\\\____                _____\/\\\_                __/\\\/____________ {esc}[0m");
+Console.WriteLine($@"{esc}[38;2;245;105;50m{esc}[1m        ___________\///_____                _____\///_                 _\///______________{esc}[0m");
+Console.WriteLine();
+Console.WriteLine($@"  {esc}[38;2;130;140;150m{esc}[1m╔══════════════════════════════════════════════════════════════════════════╗{esc}[0m");
+Console.WriteLine($@"  {esc}[38;2;130;140;150m{esc}[1m║{esc}[0m  {esc}[38;2;80;220;140m{esc}[1mAuthor   : James YinG{esc}[0m  {esc}[38;2;80;180;255m{esc}[1mEmail : james@taogame.com{esc}[0m  {esc}[38;2;255;200;60m{esc}[1m业务：软件开发 | 定制 | 修复 | 部署{esc}[0m  {esc}[38;2;130;140;150m{esc}[1m║{esc}[0m");
+Console.WriteLine($@"  {esc}[38;2;130;140;150m{esc}[1m║{esc}[0m  {esc}[38;2;255;200;60m{esc}[1m专业接单，品质保障，欢迎合作！{esc}[0m{esc}[38;2;130;140;150m{esc}[1m║{esc}[0m");
+Console.WriteLine($@"  {esc}[38;2;130;140;150m{esc}[1m╚══════════════════════════════════════════════════════════════════════════╝{esc}[0m");
+Console.WriteLine();
+
 // Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
-    .WriteTo.Console()
+    .WriteTo.Console(
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {SourceContext}{NewLine}  {Message:lj}{NewLine}{Exception}"
+    )
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
