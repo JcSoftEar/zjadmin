@@ -53,6 +53,24 @@ public class AuthService
                 LoginAttempts[lockoutKey] = new LoginAttempt { Count = 1, LastAttempt = DateTime.UtcNow };
             }
 
+            // Log failed login as exception log for security auditing
+            try
+            {
+                _db.ExceptionLogs.Add(new Models.ExceptionLog
+                {
+                    Message = "登录失败：用户名或密码错误",
+                    ExceptionType = "LoginFailed",
+                    RequestUrl = "/api/v1/auth/login",
+                    RequestMethod = "POST",
+                    RequestParams = $"{{\"username\":\"{request.Username}\"}}",
+                    IpAddress = null, // Will be set from HttpContext where available
+                    Operator = request.Username,
+                    OccurTime = DateTime.UtcNow
+                });
+                await _db.SaveChangesAsync();
+            }
+            catch { /* fail silently */ }
+
             return ApiResponse.Error("用户名或密码错误", 400);
         }
 

@@ -16,7 +16,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000
+      - DatabaseProvider=${DATABASE_PROVIDER:-Sqlite}
       - ConnectionStrings__DefaultConnection=Data Source=Data/ZJAdmin.db
+      - ConnectionStrings__MySqlConnection=${MYSQL_CONNECTION_STRING:-}
 
 volumes:
   zjadmin-db:

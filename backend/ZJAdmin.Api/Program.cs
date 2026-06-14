@@ -26,6 +26,23 @@ using ZJAdmin.Api.Data;
 using ZJAdmin.Api.Middleware;
 using ZJAdmin.Api.Services;
 
+// DatabaseProvider extension
+static string GetDatabaseProvider(WebApplicationBuilder builder)
+{
+    return builder.Configuration.GetValue<string>("DatabaseProvider") ?? "Sqlite";
+}
+
+static bool IsMySql(string provider) =>
+    "MySql".Equals(provider, StringComparison.OrdinalIgnoreCase);
+
+static void ConfigureDbContext(DbContextOptionsBuilder options, string provider, string connStr)
+{
+    if (IsMySql(provider))
+        options.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
+    else
+        options.UseSqlite(connStr);
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Startup banner
@@ -61,8 +78,15 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // Database
+var dbProvider = GetDatabaseProvider(builder);
+var dbConnStr = IsMySql(dbProvider)
+    ? builder.Configuration.GetConnectionString("MySqlConnection")!
+    : builder.Configuration.GetConnectionString("DefaultConnection")!;
+
+Log.Information("Database Provider: {Provider}", dbProvider);
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    ConfigureDbContext(options, dbProvider, dbConnStr));
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -153,7 +177,10 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    if (IsMySql(dbProvider))
+        db.Database.EnsureCreated();
+    else
+        db.Database.Migrate();
 }
 
 app.UseSerilogRequestLogging();
