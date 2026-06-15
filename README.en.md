@@ -1,5 +1,7 @@
 # ZJAdmin
 
+> **English** | [中文](README.md)
+
 A minimal, lightweight, and ready-to-use admin management system built with **.NET Core 8** + **Vue 3**. It provides only the most essential RBAC permission system and operation logging for enterprise backends.
 
 ## Features

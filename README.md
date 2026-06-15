@@ -1,56 +1,58 @@
 # ZJAdmin
 
-A lightweight, RBAC-based admin panel built with **ASP.NET Core 8** + **Vue 3** + **Element Plus**.
+> [English](README.en.md) | **中文**
 
-## Screenshots
+基于 **ASP.NET Core 8** + **Vue 3** + **Element Plus** 的轻量级 RBAC 后台管理模板。
 
-| Login | Dashboard |
+## 截图
+
+| 登录页 | 仪表盘 |
 :---:|:---:
-| ![Login](images/zj-1.jpg) | ![Dashboard](images/zj-2.jpg) |
+| ![登录](images/zj-1.jpg) | ![仪表盘](images/zj-2.jpg) |
 
-| User Management | Role Management | Permission Management |
+| 用户管理 | 角色管理 | 权限管理 |
 :---:|:---:|:---:
-| ![Users](images/zj-3.jpg) | ![Roles](images/zj-4.jpg) | ![Permissions](images/zj-5.jpg) |
+| ![用户](images/zj-3.jpg) | ![角色](images/zj-4.jpg) | ![权限](images/zj-5.jpg) |
 
-## Features
+## 功能特性
 
-- **RBAC** — Role-based access control with fine-grained button-level permissions
-- **Multi‑database** — SQLite out of the box, switch to MySQL by changing one config entry
-- **JWT Auth** — Token-based authentication with login lockout protection
-- **Operation Log** — Automatic audit trail for every API request
-- **Exception Log** — Server error & failed login persistence
-- **Menu Management** — Dynamic menus and buttons driven by permission data
-- **System Config** — Key-value site settings (title, keywords, ICP, copyright)
+- **RBAC 权限管理** — 基于角色的访问控制，支持按钮级细粒度权限
+- **多数据库支持** — 默认 SQLite，切换配置文件即可使用 MySQL
+- **JWT 认证** — 基于 Token 的身份认证，带登录锁定保护
+- **操作日志** — 自动记录每次 API 请求的审计轨迹
+- **异常日志** — 服务端异常与登录失败记录持久化
+- **菜单管理** — 根据权限数据动态生成菜单和按钮
+- **系统配置** — 站点标题、关键词、备案号、版权等键值配置
 
-## Tech Stack
+## 技术栈
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | ASP.NET Core 8 Web API |
+| 层次 | 技术 |
+|------|------|
+| 后端 | ASP.NET Core 8 Web API |
 | ORM | Entity Framework Core 8 |
-| Frontend | Vue 3 (Composition API) + Vite |
+| 前端 | Vue 3 (Composition API) + Vite |
 | UI | Element Plus |
-| Auth | JWT Bearer + BCrypt |
-| Logging | Serilog |
-| Database | SQLite / MySQL |
+| 认证 | JWT Bearer + BCrypt |
+| 日志 | Serilog |
+| 数据库 | SQLite / MySQL |
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 环境要求
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Node.js 18+](https://nodejs.org/)
 
-### Backend
+### 启动后端
 
 ```bash
 cd backend/ZJAdmin.Api
 dotnet run --urls "http://localhost:5000"
 ```
 
-The database and seed data are auto-created on first run.
+首次运行会自动创建数据库并初始化种子数据。
 
-### Frontend
+### 启动前端
 
 ```bash
 cd frontend
@@ -58,19 +60,19 @@ npm install
 npm run dev
 ```
 
-The dev server starts at `http://localhost:3417` and proxies `/api` to the backend.
+开发服务器运行在 `http://localhost:3417`，已配置将 `/api` 代理到后端。
 
-### Default Login
+### 默认登录账号
 
-| Username | Password | Role |
-|----------|----------|------|
-| `admin` | `admin123` | Super Admin (full access) |
+| 用户名 | 密码 | 角色 |
+|--------|------|------|
+| `admin` | `admin123` | 超级管理员（全部权限） |
 
-## Database
+## 数据库
 
-**SQLite** is used by default — no extra setup needed.
+默认使用 **SQLite**，无需额外配置。
 
-To switch to **MySQL**, edit `backend/ZJAdmin.Api/appsettings.json`:
+如需切换到 **MySQL**，编辑 `backend/ZJAdmin.Api/appsettings.json`：
 
 ```json
 {
@@ -81,7 +83,7 @@ To switch to **MySQL**, edit `backend/ZJAdmin.Api/appsettings.json`:
 }
 ```
 
-The schema is auto-created on first run.
+表结构会在首次运行时自动创建。
 
 ## Docker
 
@@ -89,7 +91,7 @@ The schema is auto-created on first run.
 docker compose up -d
 ```
 
-The app is served on port `8080` with Nginx. Override the DB provider via env:
+应用通过 Nginx 在 `8080` 端口提供服务。可通过环境变量覆盖数据库配置：
 
 ```bash
 DATABASE_PROVIDER=MySql MYSQL_CONNECTION_STRING="..." docker compose up -d
@@ -97,7 +99,7 @@ DATABASE_PROVIDER=MySql MYSQL_CONNECTION_STRING="..." docker compose up -d
 
 ## API
 
-All endpoints follow a unified response format:
+所有接口遵循统一的响应格式：
 
 ```json
 {
@@ -108,37 +110,37 @@ All endpoints follow a unified response format:
 }
 ```
 
-| Module | Path | Description |
-|--------|------|-------------|
-| Auth | `/api/v1/auth/*` | Login, logout, profile, change password |
-| Users | `/api/v1/users/*` | User CRUD, reset password, enable/disable |
-| Roles | `/api/v1/roles/*` | Role CRUD, assign permissions |
-| Permissions | `/api/v1/permissions/*` | Permission CRUD, permission tree |
-| Operation Logs | `/api/v1/operation-logs/*` | Query, detail, export, cleanup |
-| Exception Logs | `/api/v1/exception-logs/*` | Query, detail, export, cleanup |
+| 模块 | 路径 | 说明 |
+|------|------|------|
+| 认证 | `/api/v1/auth/*` | 登录、退出、个人信息、修改密码 |
+| 用户 | `/api/v1/users/*` | 用户增删改查、重置密码、启用/禁用 |
+| 角色 | `/api/v1/roles/*` | 角色增删改查、分配权限 |
+| 权限 | `/api/v1/permissions/*` | 权限增删改查、权限树 |
+| 操作日志 | `/api/v1/operation-logs/*` | 查询、详情、导出、清理 |
+| 异常日志 | `/api/v1/exception-logs/*` | 查询、详情、导出、清理 |
 
-## Project Structure
+## 项目结构
 
 ```
 ├── backend/
 │   └── ZJAdmin.Api/
-│       ├── Controllers/    # API endpoints
-│       ├── Services/       # Business logic
-│       ├── Models/         # Entity models
-│       ├── DTOs/           # Data transfer objects
-│       ├── Data/           # DbContext & seed data
-│       ├── Middleware/     # Exception, operation log, permission auth
-│       ├── Attributes/     # Custom attributes
-│       └── Program.cs      # Startup configuration
+│       ├── Controllers/    # API 控制器
+│       ├── Services/       # 业务逻辑层
+│       ├── Models/         # 实体模型
+│       ├── DTOs/           # 数据传输对象
+│       ├── Data/           # DbContext 与种子数据
+│       ├── Middleware/     # 异常处理、操作日志、权限认证中间件
+│       ├── Attributes/     # 自定义特性
+│       └── Program.cs      # 启动配置
 ├── frontend/
 │   └── src/
-│       ├── api/            # Axios API layer
-│       ├── layouts/        # Layout components
-│       ├── views/          # Page components
-│       ├── stores/         # Pinia state (auth, app)
+│       ├── api/            # Axios API 层
+│       ├── layouts/        # 布局组件
+│       ├── views/          # 页面组件
+│       ├── stores/         # Pinia 状态管理（auth, app）
 │       ├── router/         # Vue Router
-│       └── utils/          # Utility functions
-├── images/                 # Screenshots
+│       └── utils/          # 工具函数
+├── images/                 # 截图
 ├── docker-compose.yml
 └── Dockerfile
 ```
