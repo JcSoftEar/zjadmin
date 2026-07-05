@@ -1,0 +1,40 @@
+server:
+  port: 5000
+
+spring:
+  profiles:
+    active: sqlite
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: UTC
+    default-property-inclusion: non_null
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+# JWT Configuration
+jwt:
+  key: ${JWT_KEY:ZJAdmin_Default_Key_Change_In_Production_32Chars!}
+  issuer: ZJAdmin
+  audience: ZJAdmin
+  expiration-hours: 2
+
+# Springdoc / Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.zjadmin: DEBUG
+    com.zjadmin.mapper: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%level] %logger{36} - %msg%n"
+  file:
+    name: logs/zjadmin.log

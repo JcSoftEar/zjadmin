@@ -1,0 +1,25 @@
+# SQLite Profile
+spring:
+  datasource:
+    url: jdbc:sqlite:ZJAdmin.db
+    driver-class-name: org.sqlite.JDBC
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+# MyBatis-Plus for SQLite
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: isDeleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
