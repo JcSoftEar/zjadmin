@@ -12,6 +12,10 @@ export function getProfile() {
   return request.get('/api/v1/auth/profile')
 }
 
+export function getUserMenus() {
+  return request.get('/api/v1/auth/menus')
+}
+
 export function updateProfile(data) {
   return request.put('/api/v1/auth/profile', data)
 }

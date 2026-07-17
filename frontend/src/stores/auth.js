@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
-import { login as loginApi, getProfile, logout as logoutApi } from '../api/auth'
+import { login as loginApi, getProfile, logout as logoutApi, getUserMenus } from '../api/auth'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('token') || '',
-    userInfo: JSON.parse(localStorage.getItem('userInfo') || 'null')
+    userInfo: JSON.parse(localStorage.getItem('userInfo') || 'null'),
+    menus: []
   }),
 
   getters: {
@@ -31,6 +32,15 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem('userInfo', JSON.stringify(res.data))
       } catch {
         this.logout()
+      }
+    },
+
+    async fetchMenus() {
+      try {
+        const res = await getUserMenus()
+        this.menus = res.data || []
+      } catch {
+        this.menus = []
       }
     },
 

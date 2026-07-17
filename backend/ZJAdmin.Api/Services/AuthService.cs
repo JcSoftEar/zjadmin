@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using ZJAdmin.Api.Data;
 using ZJAdmin.Api.DTOs;
 using ZJAdmin.Api.Models;
+using Permission = ZJAdmin.Api.Models.Permission;
 
 namespace ZJAdmin.Api.Services;
 
@@ -147,6 +148,78 @@ public class AuthService
             .ToListAsync();
 
         return permissions;
+    }
+
+    public async Task<List<PermissionTreeItem>> GetCurrentUserMenus(long userId)
+    {
+        var allMenus = await _db.Permissions
+            .Where(p => p.Type == 0 && p.Visible == 1)
+            .OrderBy(p => p.Sort)
+            .ToListAsync();
+
+        var userPermissionCodes = await GetUserPermissions(userId);
+
+        // Super admin sees all menus
+        if (userPermissionCodes.Contains("*:*:*"))
+        {
+            return BuildMenuTree(allMenus, 0);
+        }
+
+        var userCodes = new HashSet<string>(userPermissionCodes);
+
+        // A menu is accessible if user has the menu's code or any child permission code
+        bool IsAccessible(Permission menu)
+        {
+            if (userCodes.Contains(menu.Code)) return true;
+            return userPermissionCodes.Any(c => c.StartsWith(menu.Code + ":"));
+        }
+
+        // Mark accessible menus and their parent paths
+        var allDict = allMenus.ToDictionary(m => m.Id);
+        var accessibleIds = new HashSet<long>();
+
+        void MarkPath(long id)
+        {
+            while (id != 0 && accessibleIds.Add(id))
+            {
+                allDict.TryGetValue(id, out var parent);
+                id = parent?.ParentId ?? 0;
+            }
+        }
+
+        foreach (var menu in allMenus)
+        {
+            if (IsAccessible(menu))
+            {
+                MarkPath(menu.Id);
+            }
+        }
+
+        var accessibleMenus = allMenus.Where(m => accessibleIds.Contains(m.Id)).ToList();
+        return BuildMenuTree(accessibleMenus, 0);
+    }
+
+    private static List<PermissionTreeItem> BuildMenuTree(List<Permission> permissions, long parentId)
+    {
+        return permissions
+            .Where(p => p.ParentId == parentId)
+            .OrderBy(p => p.Sort)
+            .Select(p => new PermissionTreeItem
+            {
+                Id = p.Id,
+                ParentId = p.ParentId,
+                Name = p.Name,
+                Code = p.Code,
+                Type = p.Type,
+                Path = p.Path,
+                Component = p.Component,
+                Icon = p.Icon,
+                Sort = p.Sort,
+                Visible = p.Visible,
+                CreateTime = p.CreateTime,
+                Children = BuildMenuTree(permissions, p.Id)
+            })
+            .ToList();
     }
 
     private string GenerateToken(User user)

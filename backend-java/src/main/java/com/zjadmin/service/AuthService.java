@@ -7,4 +7,5 @@ public interface AuthService {
     ApiResponse<LoginResponse> login(LoginRequest request);
     UserInfo getCurrentUser(Long userId);
     List<String> getUserPermissions(Long userId);
+    List<PermissionTreeNode> getCurrentUserMenus(Long userId);
 }

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -26,6 +28,13 @@ public class AuthController {
     @PostMapping("/logout")
     public ApiResponse<?> logout() {
         return ApiResponse.success(null, "Logout success");
+    }
+
+    @GetMapping("/menus")
+    public ApiResponse<List<PermissionTreeNode>> getMenus() {
+        Long userId = SecurityUtils.getCurrentUserId();
+        List<PermissionTreeNode> menus = authService.getCurrentUserMenus(userId);
+        return ApiResponse.success(menus);
     }
 
     @GetMapping("/profile")

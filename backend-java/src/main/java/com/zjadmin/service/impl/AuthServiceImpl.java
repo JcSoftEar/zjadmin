@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -164,6 +165,75 @@ public class AuthServiceImpl implements AuthService {
         return permissionMapper.selectBatchIds(permissionIds).stream()
                 .map(Permission::getCode)
                 .distinct()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PermissionTreeNode> getCurrentUserMenus(Long userId) {
+        // Get all menu-type, visible permissions
+        List<Permission> allMenus = permissionMapper.selectList(
+                new LambdaQueryWrapper<Permission>()
+                        .eq(Permission::getType, 0)
+                        .eq(Permission::getVisible, 1)
+                        .orderByAsc(Permission::getSort));
+
+        List<String> userPermissionCodes = getUserPermissions(userId);
+
+        // Super admin sees all menus
+        if (userPermissionCodes.contains("*:*:*")) {
+            return buildMenuTree(allMenus, 0L);
+        }
+
+        Set<String> userCodes = new HashSet<>(userPermissionCodes);
+        Map<Long, Permission> allDict = allMenus.stream()
+                .collect(Collectors.toMap(Permission::getId, m -> m));
+        Set<Long> accessibleIds = new HashSet<>();
+
+        for (Permission menu : allMenus) {
+            if (isMenuAccessible(menu, userCodes, userPermissionCodes)) {
+                markPath(menu.getId(), allDict, accessibleIds);
+            }
+        }
+
+        List<Permission> accessibleMenus = allMenus.stream()
+                .filter(m -> accessibleIds.contains(m.getId()))
+                .collect(Collectors.toList());
+
+        return buildMenuTree(accessibleMenus, 0L);
+    }
+
+    private boolean isMenuAccessible(Permission menu, Set<String> userCodes, List<String> userPermissionCodes) {
+        if (userCodes.contains(menu.getCode())) return true;
+        return userPermissionCodes.stream().anyMatch(c -> c.startsWith(menu.getCode() + ":"));
+    }
+
+    private void markPath(Long id, Map<Long, Permission> allDict, Set<Long> accessibleIds) {
+        while (id != 0L && accessibleIds.add(id)) {
+            Permission parent = allDict.get(id);
+            id = parent != null ? parent.getParentId() : 0L;
+        }
+    }
+
+    private List<PermissionTreeNode> buildMenuTree(List<Permission> permissions, Long parentId) {
+        return permissions.stream()
+                .filter(p -> p.getParentId().equals(parentId))
+                .sorted(Comparator.comparingInt(Permission::getSort))
+                .map(p -> {
+                    PermissionTreeNode node = new PermissionTreeNode();
+                    node.setId(p.getId());
+                    node.setParentId(p.getParentId());
+                    node.setName(p.getName());
+                    node.setCode(p.getCode());
+                    node.setType(p.getType());
+                    node.setPath(p.getPath());
+                    node.setComponent(p.getComponent());
+                    node.setIcon(p.getIcon());
+                    node.setSort(p.getSort());
+                    node.setVisible(p.getVisible());
+                    node.setCreateTime(p.getCreateTime());
+                    node.setChildren(buildMenuTree(permissions, p.getId()));
+                    return node;
+                })
                 .collect(Collectors.toList());
     }
 

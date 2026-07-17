@@ -36,6 +36,7 @@ const appStore = useAppStore()
 onMounted(async () => {
   if (authStore.token) {
     await authStore.fetchProfile()
+    await authStore.fetchMenus()
   }
   appStore.fetchConfig()
 })

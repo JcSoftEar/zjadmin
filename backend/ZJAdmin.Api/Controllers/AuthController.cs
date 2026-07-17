@@ -32,6 +32,14 @@ public class AuthController : ControllerBase
         return ApiResponse.Success(null, "退出成功");
     }
 
+    [HttpGet("menus")]
+    public async Task<ApiResponse> GetMenus()
+    {
+        var userId = GetUserId();
+        var menus = await _authService.GetCurrentUserMenus(userId);
+        return ApiResponse.Success(menus);
+    }
+
     [HttpGet("profile")]
     public async Task<ApiResponse> GetProfile()
     {
