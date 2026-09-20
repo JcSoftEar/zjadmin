@@ -1,0 +1,104 @@
+/**
+ * 方案11 · Amber Dash 暖橙能量
+ * 亮色主题 - 暖橙 + 暖灰正文
+ */
+
+[data-theme="amber-dash"] {
+  /* 主色 - 暖橙 */
+  --c-primary: #F97316;
+  --c-primary-light: #FB923C;
+  --c-primary-dark: #EA580C;
+  --c-success: #10B981;
+  --c-warning: #F59E0B;
+  --c-danger: #EF4444;
+
+  /* 辅色 */
+  --c-accent: #F59E0B;
+
+  /* 背景 */
+  --c-bg: #FFFBF7;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #FFF7ED;
+
+  /* 文本 - 暖灰 */
+  --c-text: #4A3728;
+  --c-text-2: #6B5B4E;
+  --c-text-3: #A89281;
+
+  /* 描边 */
+  --c-line: #FFEADD;
+  --c-line-2: #FFF0E5;
+
+  /* 侧栏 */
+  --c-sidebar-bg: #FFFBF7;
+  --c-sidebar-bg-gradient: none;
+  --c-sidebar-text: #6B5B4E;
+  --c-sidebar-text-hover: #F97316;
+  --c-sidebar-active-text: #F97316;
+  --c-sidebar-active-bg: #FFEDD5;
+  --c-sidebar-border: #FFEADD;
+
+  /* 导航栏 */
+  --c-navbar-bg: #FFFFFF;
+  --c-navbar-border: #FFEADD;
+  --c-navbar-shadow: 0 1px 4px rgba(249, 115, 22, 0.05);
+  --c-navbar-text: #4A3728;
+
+  /* 卡片 */
+  --c-card-bg: #FFFFFF;
+  --c-card-border: #FFEADD;
+  --c-card-shadow: 0 2px 12px rgba(249, 115, 22, 0.06);
+  --c-card-shadow-hover: 0 8px 24px rgba(249, 115, 22, 0.12);
+  --radius-lg: 16px;
+
+  /* 表格 */
+  --c-table-header-bg: #FFF7ED;
+  --c-table-row-hover: #FFF7ED;
+  --c-table-border: #FFEADD;
+  --c-table-stripe: #FFFBF7;
+
+  /* 输入框 */
+  --c-input-bg: #FFFFFF;
+  --c-input-border: #FFD9C2;
+  --c-input-border-focus: #F97316;
+
+  /* 装饰 */
+  --c-glow-1: rgba(249, 115, 22, 0.08);
+  --c-glow-2: rgba(245, 158, 11, 0.06);
+  --c-accent-gradient: linear-gradient(135deg, #F97316, #F59E0B);
+}
+
+/* 主按钮渐变 */
+[data-theme="amber-dash"] .el-button--primary {
+  background: linear-gradient(135deg, #F97316, #F59E0B);
+  border: none;
+}
+
+[data-theme="amber-dash"] .el-button--primary:hover {
+  background: linear-gradient(135deg, #FB923C, #FBBF24);
+}
+
+/* 卡片hover - 能量感 */
+[data-theme="amber-dash"] .page-container,
+[data-theme="amber-dash"] .card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+[data-theme="amber-dash"] .page-container:hover,
+[data-theme="amber-dash"] .card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(249, 115, 22, 0.15);
+}
+
+/* 激活导航 */
+[data-theme="amber-dash"] .el-menu-item.is-active {
+  background: #FFEDD5;
+  border-left: 3px solid #F97316;
+  color: #F97316;
+}
+
+/* 暖灰正文 */
+[data-theme="amber-dash"] body,
+[data-theme="amber-dash"] .el-table {
+  color: #6B5B4E;
+}

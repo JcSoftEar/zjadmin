@@ -118,6 +118,7 @@ public class UpdatePermissionRequest
 {
     public long ParentId { get; set; } = 0;
     public string Name { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
     public byte Type { get; set; }
     public string? Path { get; set; }
     public string? Component { get; set; }

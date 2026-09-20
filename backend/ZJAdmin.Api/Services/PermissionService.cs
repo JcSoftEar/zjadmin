@@ -61,8 +61,13 @@ public class PermissionService
         if (permission == null)
             return ApiResponse.Error("权限不存在", 404);
 
+        // 校验权限标识唯一性（排除自身）
+        if (await _db.Permissions.AnyAsync(p => p.Code == request.Code && p.Id != id))
+            return ApiResponse.Error("权限标识已存在", 400);
+
         permission.ParentId = request.ParentId;
         permission.Name = request.Name;
+        permission.Code = request.Code;
         permission.Type = request.Type;
         permission.Path = request.Path;
         permission.Component = request.Component;

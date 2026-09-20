@@ -1,0 +1,139 @@
+/**
+ * 方案9 · Sunset Glow 橙紫渐变 ★ 亮色首选
+ * 亮色主题 - 橙→紫渐变 + 流动暖光
+ */
+
+[data-theme="sunset-glow"] {
+  /* 主色 - 橙 */
+  --c-primary: #FB923C;
+  --c-primary-light: #FDBA74;
+  --c-primary-dark: #F97316;
+  --c-success: #10B981;
+  --c-warning: #FBBF24;
+  --c-danger: #F43F5E;
+
+  /* 辅色 - 紫 */
+  --c-accent: #A855F7;
+  --c-accent-light: #C084FC;
+
+  /* 背景 - 暖色渐变 */
+  --c-bg: linear-gradient(135deg, #FFFAF5 0%, #F6F4FF 100%);
+  --c-bg-solid: #FFFAF5;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #FFF9F5;
+
+  /* 文本 */
+  --c-text: #2B2438;
+  --c-text-2: #6B6377;
+  --c-text-3: #A89FB4;
+
+  /* 描边 */
+  --c-line: #F0E7F5;
+  --c-line-2: #F5F0FA;
+
+  /* 侧栏 - 半透明白毛玻璃 */
+  --c-sidebar-bg: rgba(255, 255, 255, 0.85);
+  --c-sidebar-bg-gradient: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(246,244,255,0.85) 100%);
+  --c-sidebar-text: #6B6377;
+  --c-sidebar-text-hover: #2B2438;
+  --c-sidebar-active-text: #FB923C;
+  --c-sidebar-active-bg: rgba(251, 146, 60, 0.08);
+  --c-sidebar-border: #F0E7F5;
+
+  /* 导航栏 */
+  --c-navbar-bg: rgba(255, 255, 255, 0.88);
+  --c-navbar-border: #F0E7F5;
+  --c-navbar-text: #2B2438;
+
+  /* 卡片 */
+  --c-card-bg: #FFFFFF;
+  --c-card-border: #F0E7F5;
+  --c-card-shadow: 0 10px 26px rgba(150, 100, 180, 0.08);
+  --c-card-shadow-hover: 0 18px 38px rgba(150, 100, 180, 0.16);
+  --radius-lg: 16px;
+
+  /* 表格 */
+  --c-table-header-bg: #FFF9F5;
+  --c-table-row-hover: #FFF5EE;
+  --c-table-border: #F0E7F5;
+  --c-table-stripe: #FFFAF5;
+
+  /* 输入框 */
+  --c-input-bg: #FFFFFF;
+  --c-input-border: #E8DFF0;
+  --c-input-border-focus: #FB923C;
+
+  /* 装饰光晕 */
+  --c-glow-1: rgba(251, 146, 60, 0.1);
+  --c-glow-2: rgba(168, 85, 247, 0.08);
+  --c-glow-3: rgba(244, 63, 94, 0.06);
+  --c-accent-gradient: linear-gradient(135deg, #FB923C, #A855F7);
+}
+
+/* 毛玻璃效果 */
+[data-theme="sunset-glow"] .sidebar,
+[data-theme="sunset-glow"] .navbar {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* 渐变文字标题 */
+[data-theme="sunset-glow"] .page-title,
+[data-theme="sunset-glow"] .system-name {
+  background: linear-gradient(135deg, #FB923C, #A855F7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 激活导航 - 渐变胶囊 */
+[data-theme="sunset-glow"] .el-menu-item.is-active {
+  background: linear-gradient(120deg, rgba(251, 146, 60, 0.12), rgba(168, 85, 247, 0.08));
+  border-radius: 8px;
+  margin: 4px 8px;
+  width: calc(100% - 16px);
+  color: #FB923C;
+}
+
+/* 主按钮渐变 */
+[data-theme="sunset-glow"] .el-button--primary {
+  background: linear-gradient(135deg, #FB923C, #A855F7);
+  border: none;
+}
+
+[data-theme="sunset-glow"] .el-button--primary:hover {
+  background: linear-gradient(135deg, #FDBA74, #C084FC);
+}
+
+/* 流光边框 */
+[data-theme="sunset-glow"] .ring {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  overflow: hidden;
+}
+
+[data-theme="sunset-glow"] .ring::before {
+  content: "";
+  position: absolute;
+  inset: -70%;
+  background: conic-gradient(
+    transparent 0%,
+    #FB923C 11%,
+    #F43F5E 19%,
+    #A855F7 27%,
+    transparent 38%
+  );
+  animation: spin 7s linear infinite;
+}
+
+[data-theme="sunset-glow"] .ring-in {
+  position: relative;
+  border-radius: calc(var(--radius-lg) - 1px);
+  background: #fff;
+  padding: 16px 18px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

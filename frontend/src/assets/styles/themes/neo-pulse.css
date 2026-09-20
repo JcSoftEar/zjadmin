@@ -1,0 +1,118 @@
+/**
+ * 方案8 · Neo Pulse 撞色极潮
+ * 暗色主题 - 荧光柠 × 洋红 + 硬阴影
+ */
+
+[data-theme="neo-pulse"] {
+  /* 主色 - 荧光柠 */
+  --c-primary: #C6FF3D;
+  --c-primary-light: #D4FF6B;
+  --c-primary-dark: #A8E020;
+  --c-success: #34D399;
+  --c-warning: #FBBF24;
+  --c-danger: #FF2D9B;
+
+  /* 辅色 */
+  --c-accent: #FF2D9B;
+  --c-accent-2: #00E5FF;
+
+  /* 背景 */
+  --c-bg: #0D0D0F;
+  --c-bg-2: #141416;
+  --c-surface: #1A1A1E;
+  --c-surface-2: #222226;
+
+  /* 文本 */
+  --c-text: #F0F0F0;
+  --c-text-2: #A0A0A0;
+  --c-text-3: #606060;
+
+  /* 描边 */
+  --c-line: rgba(198, 255, 61, 0.15);
+  --c-line-2: rgba(255, 255, 255, 0.08);
+
+  /* 侧栏 */
+  --c-sidebar-bg: #0D0D0F;
+  --c-sidebar-bg-gradient: linear-gradient(180deg, rgba(198, 255, 61, 0.05) 0%, rgba(255, 45, 155, 0.03) 50%, #0D0D0F 100%);
+  --c-sidebar-text: #A0A0A0;
+  --c-sidebar-text-hover: #C6FF3D;
+  --c-sidebar-active-text: #C6FF3D;
+  --c-sidebar-active-bg: rgba(198, 255, 61, 0.1);
+  --c-sidebar-border: rgba(198, 255, 61, 0.1);
+
+  /* 导航栏 */
+  --c-navbar-bg: #141416;
+  --c-navbar-border: rgba(198, 255, 61, 0.1);
+  --c-navbar-text: #F0F0F0;
+
+  /* 卡片 - 硬阴影 */
+  --c-card-bg: #1A1A1E;
+  --c-card-border: 2px solid rgba(198, 255, 61, 0.12);
+  --c-card-shadow: 4px 4px 0 rgba(198, 255, 61, 0.15);
+  --c-card-shadow-hover: 6px 6px 0 rgba(255, 45, 155, 0.2);
+  --radius-lg: 14px;
+
+  /* 表格 */
+  --c-table-header-bg: rgba(198, 255, 61, 0.05);
+  --c-table-row-hover: rgba(198, 255, 61, 0.06);
+  --c-table-border: rgba(198, 255, 61, 0.1);
+
+  /* 输入框 */
+  --c-input-bg: #1A1A1E;
+  --c-input-border: 2px solid rgba(198, 255, 61, 0.12);
+  --c-input-border-focus: #C6FF3D;
+
+  /* 按钮 - 硬阴影 */
+  --c-btn-primary-shadow: 3px 3px 0 rgba(255, 45, 155, 0.4);
+
+  /* 装饰 */
+  --c-glow-1: rgba(198, 255, 61, 0.1);
+  --c-glow-2: rgba(255, 45, 155, 0.08);
+  --c-glow-3: rgba(0, 229, 255, 0.06);
+  --c-accent-gradient: linear-gradient(135deg, #C6FF3D, #FF2D9B);
+}
+
+/* 硬阴影效果 */
+[data-theme="neo-pulse"] .page-container,
+[data-theme="neo-pulse"] .card {
+  border: 2px solid rgba(198, 255, 61, 0.12);
+  box-shadow: 4px 4px 0 rgba(198, 255, 61, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+[data-theme="neo-pulse"] .page-container:hover,
+[data-theme="neo-pulse"] .card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 rgba(255, 45, 155, 0.2);
+}
+
+/* 主按钮双色硬阴影 */
+[data-theme="neo-pulse"] .el-button--primary {
+  box-shadow: 3px 3px 0 rgba(255, 45, 155, 0.4);
+}
+
+[data-theme="neo-pulse"] .el-button--primary:hover {
+  box-shadow: 5px 5px 0 rgba(255, 45, 155, 0.5);
+}
+
+/* 激活导航 */
+[data-theme="neo-pulse"] .el-menu-item.is-active {
+  background: rgba(198, 255, 61, 0.1);
+  border-left: 3px solid #C6FF3D;
+  color: #C6FF3D;
+  font-weight: 800;
+}
+
+/* Logo倾斜 */
+[data-theme="neo-pulse"] .logo-text {
+  transform: rotate(-3deg);
+  display: inline-block;
+}
+
+/* 粗体字重 */
+[data-theme="neo-pulse"] h1,
+[data-theme="neo-pulse"] h2,
+[data-theme="neo-pulse"] h3 {
+  font-weight: 900;
+  letter-spacing: -1px;
+}

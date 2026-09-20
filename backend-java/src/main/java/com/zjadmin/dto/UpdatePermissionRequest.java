@@ -10,6 +10,9 @@ public class UpdatePermissionRequest {
     @NotBlank(message = "权限名称不能为空")
     private String name;
 
+    @NotBlank(message = "权限标识不能为空")
+    private String code;
+
     private Integer type;
     private String path;
     private String component;

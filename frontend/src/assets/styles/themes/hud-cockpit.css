@@ -1,0 +1,121 @@
+/**
+ * 方案7 · HUD 全息驾驶舱
+ * 暗色主题 - 磷光绿 CRT + 雷达扫描
+ */
+
+[data-theme="hud-cockpit"] {
+  /* 主色 - 磷光绿 */
+  --c-primary: #7DFCB0;
+  --c-primary-light: #A8FFD0;
+  --c-primary-dark: #4AE88A;
+  --c-success: #7DFCB0;
+  --c-warning: #FBBF24;
+  --c-danger: #FF6B6B;
+
+  /* 背景 */
+  --c-bg: #040806;
+  --c-bg-2: #080E0A;
+  --c-surface: rgba(125, 252, 176, 0.03);
+  --c-surface-2: rgba(125, 252, 176, 0.05);
+
+  /* 文本 - 磷光绿分级 */
+  --c-text: rgba(125, 252, 176, 0.85);
+  --c-text-2: rgba(125, 252, 176, 0.55);
+  --c-text-3: rgba(125, 252, 176, 0.32);
+
+  /* 描边 */
+  --c-line: rgba(125, 252, 176, 0.15);
+  --c-line-2: rgba(125, 252, 176, 0.08);
+
+  /* 侧栏 */
+  --c-sidebar-bg: rgba(4, 8, 6, 0.92);
+  --c-sidebar-bg-gradient: linear-gradient(180deg, rgba(125, 252, 176, 0.04) 0%, rgba(4, 8, 6, 0.98) 100%);
+  --c-sidebar-text: rgba(125, 252, 176, 0.55);
+  --c-sidebar-text-hover: rgba(125, 252, 176, 0.85);
+  --c-sidebar-active-text: #7DFCB0;
+  --c-sidebar-active-bg: rgba(125, 252, 176, 0.08);
+  --c-sidebar-border: rgba(125, 252, 176, 0.1);
+
+  /* 导航栏 */
+  --c-navbar-bg: rgba(4, 8, 6, 0.88);
+  --c-navbar-border: rgba(125, 252, 176, 0.1);
+  --c-navbar-text: rgba(125, 252, 176, 0.85);
+
+  /* 卡片 */
+  --c-card-bg: rgba(125, 252, 176, 0.03);
+  --c-card-border: rgba(125, 252, 176, 0.12);
+  --c-card-shadow: 0 0 20px rgba(125, 252, 176, 0.05);
+  --c-card-shadow-hover: 0 0 30px rgba(125, 252, 176, 0.1);
+
+  /* 表格 */
+  --c-table-header-bg: rgba(125, 252, 176, 0.04);
+  --c-table-row-hover: rgba(125, 252, 176, 0.06);
+  --c-table-border: rgba(125, 252, 176, 0.1);
+
+  /* 输入框 */
+  --c-input-bg: rgba(125, 252, 176, 0.03);
+  --c-input-border: rgba(125, 252, 176, 0.15);
+  --c-input-border-focus: #7DFCB0;
+
+  /* 装饰 */
+  --c-glow-1: rgba(125, 252, 176, 0.1);
+  --c-glow-2: rgba(125, 252, 176, 0.06);
+  --c-glow-3: rgba(255, 107, 107, 0.08);
+  --c-accent-gradient: linear-gradient(135deg, #7DFCB0, #4AE88A);
+}
+
+/* CRT扫描线效果 */
+[data-theme="hud-cockpit"]::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(125, 252, 176, 0.012) 2px,
+    rgba(125, 252, 176, 0.012) 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* 磷光辉光效果 */
+[data-theme="hud-cockpit"] .logo-text,
+[data-theme="hud-cockpit"] .system-name {
+  text-shadow: 0 0 10px rgba(125, 252, 176, 0.5);
+}
+
+/* 激活导航 */
+[data-theme="hud-cockpit"] .el-menu-item.is-active {
+  background: rgba(125, 252, 176, 0.08);
+  border-left: 2px solid #7DFCB0;
+  color: #7DFCB0;
+  text-shadow: 0 0 6px rgba(125, 252, 176, 0.4);
+}
+
+/* 等宽字体 - HUD风格 */
+[data-theme="hud-cockpit"] .el-table {
+  font-family: ui-monospace, 'JetBrains Mono', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+}
+
+/* 雷达扫描动画 */
+[data-theme="hud-cockpit"] .radar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(125, 252, 176, 0.15) 30deg,
+    transparent 60deg
+  );
+  animation: radar 3.4s linear infinite;
+}
+
+@keyframes radar {
+  to { transform: rotate(360deg); }
+}

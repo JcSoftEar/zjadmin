@@ -1,0 +1,106 @@
+/**
+ * 方案6 · Aurora Glass 极光玻璃
+ * 暗色主题 - 流动极光 + 玻璃拟态 + 3D悬浮
+ */
+
+[data-theme="aurora-glass"] {
+  /* 主色 */
+  --c-primary: #2563EB;
+  --c-primary-light: #60A5FA;
+  --c-primary-dark: #1D4ED8;
+  --c-success: #34D399;
+  --c-warning: #FBBF24;
+  --c-danger: #F87171;
+
+  /* 辅色 */
+  --c-accent: #7C3AED;
+  --c-accent-2: #06B6D4;
+
+  /* 背景 */
+  --c-bg: #0A0F1C;
+  --c-bg-2: #0F1629;
+  --c-surface: linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  --c-surface-2: rgba(255, 255, 255, 0.04);
+
+  /* 文本 */
+  --c-text: #F1F5F9;
+  --c-text-2: #94A3B8;
+  --c-text-3: #64748B;
+
+  /* 描边 */
+  --c-line: rgba(255, 255, 255, 0.1);
+  --c-line-2: rgba(255, 255, 255, 0.05);
+
+  /* 侧栏 */
+  --c-sidebar-bg: rgba(10, 15, 28, 0.88);
+  --c-sidebar-bg-gradient: linear-gradient(180deg, rgba(37, 99, 235, 0.06) 0%, rgba(124, 58, 237, 0.04) 50%, rgba(10, 15, 28, 0.95) 100%);
+  --c-sidebar-text: #94A3B8;
+  --c-sidebar-text-hover: #F1F5F9;
+  --c-sidebar-active-text: #60A5FA;
+  --c-sidebar-active-bg: rgba(37, 99, 235, 0.12);
+  --c-sidebar-border: rgba(255, 255, 255, 0.06);
+
+  /* 导航栏 */
+  --c-navbar-bg: rgba(10, 15, 28, 0.82);
+  --c-navbar-border: rgba(255, 255, 255, 0.08);
+  --c-navbar-text: #F1F5F9;
+
+  /* 卡片 - 玻璃 */
+  --c-card-bg: linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  --c-card-border: rgba(255, 255, 255, 0.12);
+  --c-card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --c-card-shadow-hover: 0 16px 48px rgba(37, 99, 235, 0.15);
+  --radius-lg: 16px;
+
+  /* 毛玻璃 */
+  --glass-bg: linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  --glass-blur: 28px;
+  --glass-border: rgba(255, 255, 255, 0.12);
+
+  /* 表格 */
+  --c-table-header-bg: rgba(255, 255, 255, 0.03);
+  --c-table-row-hover: rgba(37, 99, 235, 0.06);
+  --c-table-border: rgba(255, 255, 255, 0.06);
+
+  /* 输入框 */
+  --c-input-bg: rgba(255, 255, 255, 0.04);
+  --c-input-border: rgba(255, 255, 255, 0.1);
+  --c-input-border-focus: #2563EB;
+
+  /* 装饰光晕 */
+  --c-glow-1: rgba(37, 99, 235, 0.12);
+  --c-glow-2: rgba(124, 58, 237, 0.1);
+  --c-glow-3: rgba(6, 182, 212, 0.08);
+  --c-accent-gradient: linear-gradient(135deg, #2563EB, #7C3AED, #06B6D4);
+}
+
+/* 毛玻璃效果 */
+[data-theme="aurora-glass"] .sidebar,
+[data-theme="aurora-glass"] .navbar {
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+/* 3D悬浮效果 */
+[data-theme="aurora-glass"] .page-container,
+[data-theme="aurora-glass"] .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="aurora-glass"] .page-container:hover,
+[data-theme="aurora-glass"] .card:hover {
+  transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+  box-shadow: 0 16px 48px rgba(37, 99, 235, 0.15);
+}
+
+/* 玻璃棱边高光 */
+[data-theme="aurora-glass"] .page-container,
+[data-theme="aurora-glass"] .card {
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* 激活导航 */
+[data-theme="aurora-glass"] .el-menu-item.is-active {
+  background: rgba(37, 99, 235, 0.12);
+  border-left: 3px solid #60A5FA;
+}

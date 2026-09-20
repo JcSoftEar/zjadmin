@@ -1,0 +1,24 @@
+/**
+ * ZJAdmin Theme System - Index
+ * Import all themes here
+ */
+
+@import './base.css';
+@import './classic-deep.css';
+@import './notion-light.css';
+@import './dark-glass.css';
+@import './cyber-nebula.css';
+@import './aurora-glass.css';
+@import './hud-cockpit.css';
+@import './neo-pulse.css';
+@import './sunset-glow.css';
+@import './violet-bloom.css';
+@import './amber-dash.css';
+@import './candy-pop.css';
+
+/**
+ * Theme metadata for UI switcher
+ */
+:root {
+  --theme-list: classic-deep, notion-light, dark-glass, cyber-nebula, aurora-glass, hud-cockpit, neo-pulse, sunset-glow, violet-bloom, amber-dash, candy-pop;
+}

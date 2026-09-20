@@ -8,7 +8,7 @@
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
           <el-button @click="resetSearch">重置</el-button>
-          <el-button @click="expandAll = !expandAll">{{ expandAll ? '折叠' : '展开' }}全部</el-button>
+          <el-button @click="toggleExpandAll">{{ expandAll ? '折叠' : '展开' }}全部</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -19,10 +19,10 @@
       </div>
 
       <el-table
+        ref="tableRef"
         :data="permissionList"
         v-loading="loading"
         row-key="id"
-        :default-expand-all="expandAll"
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         stripe
       >
@@ -43,6 +43,13 @@
           </template>
         </el-table-column>
         <el-table-column prop="sort" label="排序" width="70" />
+        <el-table-column label="是否显示" width="100">
+          <template #default="{ row }">
+            <el-tag :type="row.type === 0 ? (row.visible === 1 ? 'success' : 'info') : 'info'" size="small">
+              {{ row.type === 0 ? (row.visible === 1 ? '显示' : '隐藏') : '-' }}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
             <el-button v-permission="'system:permission:add'" type="primary" link size="small" @click="openCreate(row.id)">新增</el-button>
@@ -68,7 +75,7 @@
         <el-form-item label="权限名称" prop="name">
           <el-input v-model="form.name" placeholder="权限名称" />
         </el-form-item>
-        <el-form-item label="权限标识" prop="code" v-if="!isEdit">
+        <el-form-item label="权限标识" prop="code">
           <el-input v-model="form.code" placeholder="权限标识" />
         </el-form-item>
         <el-form-item label="权限类型" prop="type">
@@ -105,7 +112,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getPermissionTree, createPermission, updatePermission, deletePermission, getPermissionDetail } from '../../../api/permissions'
 
@@ -117,6 +124,30 @@ const isEdit = ref(false)
 const editId = ref(0)
 const expandAll = ref(true)
 const formRef = ref(null)
+const tableRef = ref(null)
+
+// 只展开顶级菜单（parentId=0）
+function expandMenuRows(list) {
+  for (const item of list) {
+    if (item.parentId === 0 && item.type === 0 && item.children?.length) {
+      tableRef.value?.toggleRowExpansion(item, true)
+    }
+  }
+}
+
+// 展开/折叠全部
+function toggleExpandAll() {
+  expandAll.value = !expandAll.value
+  function toggleRows(list) {
+    for (const item of list) {
+      if (item.children?.length) {
+        tableRef.value?.toggleRowExpansion(item, expandAll.value)
+        toggleRows(item.children)
+      }
+    }
+  }
+  toggleRows(permissionList.value)
+}
 
 const query = reactive({
   keyword: ''
@@ -152,6 +183,8 @@ async function fetchData() {
     const res = await getPermissionTree()
     permissionList.value = res.data || []
     permissionOptions.value = res.data || []
+    await nextTick()
+    expandMenuRows(permissionList.value)
   } finally {
     loading.value = false
   }
@@ -186,6 +219,7 @@ async function openEdit(row) {
   editId.value = row.id
   form.parentId = row.parentId || null
   form.name = row.name
+  form.code = row.code
   form.type = row.type
   form.path = row.path
   form.component = row.component
@@ -205,6 +239,7 @@ async function handleSubmit() {
       await updatePermission(editId.value, {
         parentId: form.parentId || 0,
         name: form.name,
+        code: form.code,
         type: form.type,
         path: form.path,
         component: form.component,

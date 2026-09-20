@@ -21,9 +21,9 @@
     :collapse="appStore.sidebarCollapsed"
     :router="true"
     class="sidebar-menu"
-    background-color="#304156"
-    text-color="#bfcbd9"
-    active-text-color="#409EFF"
+    :background-color="'transparent'"
+    :text-color="'var(--c-sidebar-text)'"
+    :active-text-color="'var(--c-sidebar-active-text)'"
   >
     <!-- 首页 - 始终显示 -->
     <el-menu-item index="/dashboard">
@@ -64,5 +64,37 @@ const authStore = useAuthStore()
   border-right: none;
   overflow-y: auto;
   overflow-x: hidden;
+  background: transparent !important;
+}
+
+/* Element Plus menu overrides */
+.sidebar-menu :deep(.el-menu-item) {
+  color: var(--c-sidebar-text);
+  height: 50px;
+  line-height: 50px;
+  margin: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--dur-fast);
+}
+
+.sidebar-menu :deep(.el-menu-item:hover) {
+  background: var(--c-sidebar-active-bg) !important;
+  color: var(--c-sidebar-text-hover) !important;
+}
+
+.sidebar-menu :deep(.el-menu-item.is-active) {
+  background: var(--c-sidebar-active-bg) !important;
+  color: var(--c-sidebar-active-text) !important;
+}
+
+.sidebar-menu :deep(.el-sub-menu__title) {
+  color: var(--c-sidebar-text);
+  height: 50px;
+  line-height: 50px;
+}
+
+.sidebar-menu :deep(.el-sub-menu__title:hover) {
+  background: var(--c-sidebar-active-bg) !important;
+  color: var(--c-sidebar-text-hover) !important;
 }
 </style>

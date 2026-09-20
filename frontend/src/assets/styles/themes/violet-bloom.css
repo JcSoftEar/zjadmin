@@ -1,0 +1,106 @@
+/**
+ * 方案10 · Violet Bloom 紫罗兰
+ * 亮色主题 - 紫阶5档 + 点阵底纹
+ */
+
+[data-theme="violet-bloom"] {
+  /* 主色 - 紫 */
+  --c-primary: #7C3AED;
+  --c-primary-light: #8B5CF6;
+  --c-primary-dark: #6D28D9;
+  --c-success: #10B981;
+  --c-warning: #F59E0B;
+  --c-danger: #EF4444;
+
+  /* 辅色 */
+  --c-accent: #D946EF;
+
+  /* 紫阶层次 */
+  --violet-L1: #FBFAFF;  /* 画布 */
+  --violet-L2: #FAF7FF;  /* 悬浮 */
+  --violet-L3: #F5F3FF;  /* 卡片 */
+  --violet-L4: #EDE9FE;  /* 激活 */
+  --violet-L5: #7C3AED;  /* 主色 */
+
+  /* 背景 */
+  --c-bg: #FBFAFF;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #F5F3FF;
+
+  /* 文本 */
+  --c-text: #1E1B2E;
+  --c-text-2: #4C4662;
+  --c-text-3: #8B83A0;
+
+  /* 描边 */
+  --c-line: #E8E4F0;
+  --c-line-2: #F0ECF6;
+
+  /* 侧栏 */
+  --c-sidebar-bg: #F5F3FF;
+  --c-sidebar-bg-gradient: none;
+  --c-sidebar-text: #4C4662;
+  --c-sidebar-text-hover: #7C3AED;
+  --c-sidebar-active-text: #7C3AED;
+  --c-sidebar-active-bg: #EDE9FE;
+  --c-sidebar-border: #E8E4F0;
+
+  /* 导航栏 */
+  --c-navbar-bg: #FFFFFF;
+  --c-navbar-border: #E8E4F0;
+  --c-navbar-shadow: 0 1px 4px rgba(124, 58, 237, 0.05);
+  --c-navbar-text: #1E1B2E;
+
+  /* 卡片 - 左侧渐变色条 */
+  --c-card-bg: #FFFFFF;
+  --c-card-border: #E8E4F0;
+  --c-card-shadow: 0 2px 12px rgba(124, 58, 237, 0.06);
+  --c-card-shadow-hover: 0 8px 24px rgba(124, 58, 237, 0.12);
+  --radius-lg: 16px;
+
+  /* 表格 */
+  --c-table-header-bg: #FAF7FF;
+  --c-table-row-hover: #FAF7FF;
+  --c-table-border: #E8E4F0;
+  --c-table-stripe: #FBFAFF;
+
+  /* 输入框 */
+  --c-input-bg: #FFFFFF;
+  --c-input-border: #E0DCF0;
+  --c-input-border-focus: #7C3AED;
+
+  /* 装饰 */
+  --c-glow-1: rgba(124, 58, 237, 0.08);
+  --c-glow-2: rgba(217, 70, 239, 0.06);
+  --c-accent-gradient: linear-gradient(135deg, #7C3AED, #D946EF);
+}
+
+/* 点阵底纹 */
+[data-theme="violet-bloom"]::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 卡片左侧渐变色条 */
+[data-theme="violet-bloom"] .page-container,
+[data-theme="violet-bloom"] .card {
+  border-left: 4px solid;
+  border-image: linear-gradient(180deg, #7C3AED, #D946EF) 1;
+}
+
+/* 激活导航 */
+[data-theme="violet-bloom"] .el-menu-item.is-active {
+  background: #EDE9FE;
+  border-left: 3px solid #7C3AED;
+  color: #7C3AED;
+}

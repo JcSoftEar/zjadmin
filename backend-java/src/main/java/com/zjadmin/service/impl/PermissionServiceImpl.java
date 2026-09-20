@@ -64,8 +64,16 @@ public class PermissionServiceImpl implements PermissionService {
         Permission permission = permissionMapper.selectById(id);
         if (permission == null) return ApiResponse.error("权限不存在", 404);
 
+        // 校验权限标识唯一性（排除自身）
+        Long count = permissionMapper.selectCount(
+                new LambdaQueryWrapper<Permission>()
+                        .eq(Permission::getCode, request.getCode())
+                        .ne(Permission::getId, id));
+        if (count > 0) return ApiResponse.error("权限标识已存在", 400);
+
         permission.setParentId(request.getParentId());
         permission.setName(request.getName());
+        permission.setCode(request.getCode());
         permission.setType(request.getType());
         permission.setPath(request.getPath());
         permission.setComponent(request.getComponent());

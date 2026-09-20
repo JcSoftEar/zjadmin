@@ -1,24 +1,19 @@
-// Colors
-$primary-color: #409EFF;
-$success-color: #67C23A;
-$warning-color: #E6A23C;
-$danger-color: #F56C6C;
-$bg-color: #F5F7FA;
-$text-primary: #303133;
-$text-regular: #606266;
-$text-secondary: #909399;
+// Global Styles - Using CSS Variables from Theme System
 
 // Layout
-$navbar-height: 60px;
-$sidebar-width: 240px;
-$sidebar-collapsed-width: 64px;
-$content-padding: 20px;
+$navbar-height: var(--navbar-height);
+$sidebar-width: var(--sidebar-width);
+$sidebar-collapsed-width: var(--sidebar-collapsed-width);
+$content-padding: var(--content-padding);
 
 // Common page styles
 .page-container {
-  background: #fff;
-  border-radius: 4px;
+  background: var(--c-surface);
+  border-radius: var(--radius-md);
   padding: 20px;
+  border: var(--c-card-border);
+  box-shadow: var(--c-card-shadow);
+  transition: box-shadow var(--dur), transform var(--dur);
 }
 
 .page-header {
@@ -30,15 +25,17 @@ $content-padding: 20px;
   .page-title {
     font-size: 18px;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--c-text);
   }
 }
 
 .search-form {
   margin-bottom: 20px;
   padding: 20px;
-  background: #fff;
-  border-radius: 4px;
+  background: var(--c-surface);
+  border-radius: var(--radius-md);
+  border: var(--c-card-border);
+  box-shadow: var(--c-card-shadow);
 }
 
 .table-actions {
@@ -49,8 +46,67 @@ $content-padding: 20px;
 
 // Card
 .card {
-  background: #fff;
-  border-radius: 4px;
+  background: var(--c-surface);
+  border-radius: var(--radius-md);
   padding: 20px;
   margin-bottom: 20px;
+  border: var(--c-card-border);
+  box-shadow: var(--c-card-shadow);
+  transition: box-shadow var(--dur), transform var(--dur);
+}
+
+// Element Plus overrides using CSS variables
+:root {
+  --el-color-primary: var(--c-primary);
+  --el-color-success: var(--c-success);
+  --el-color-warning: var(--c-warning);
+  --el-color-danger: var(--c-danger);
+  --el-color-info: var(--c-info, #909399);
+
+  --el-bg-color: var(--c-surface);
+  --el-bg-color-page: var(--c-bg);
+  --el-bg-color-overlay: var(--c-surface);
+
+  --el-text-color-primary: var(--c-text);
+  --el-text-color-regular: var(--c-text-2);
+  --el-text-color-secondary: var(--c-text-3);
+  --el-text-color-placeholder: var(--c-text-4, #C0C4CC);
+
+  --el-border-color: var(--c-line);
+  --el-border-color-light: var(--c-line-2);
+  --el-border-color-lighter: var(--c-line-3, #F2F6FC);
+  --el-border-color-extra-light: var(--c-line-3, #F2F6FC);
+
+  --el-fill-color-blank: var(--c-surface);
+  --el-fill-color: var(--c-surface-2);
+  --el-fill-color-light: var(--c-surface-2);
+  --el-fill-color-lighter: var(--c-bg);
+  --el-fill-color-extra-light: var(--c-bg);
+
+  --el-mask-color: rgba(0, 0, 0, 0.5);
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-text-4, #C0C4CC);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-text-3);
+}
+
+// Selection color
+::selection {
+  background: var(--c-primary);
+  color: white;
 }

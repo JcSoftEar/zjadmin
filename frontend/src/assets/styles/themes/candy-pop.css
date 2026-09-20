@@ -1,0 +1,122 @@
+/**
+ * 方案12 · Candy Pop 撞色糖果
+ * 亮色主题 - 玫红×天蓝×柠黄 + 黑描边
+ */
+
+[data-theme="candy-pop"] {
+  /* 主色 - 玫红 */
+  --c-primary: #FB7185;
+  --c-primary-light: #FDA4AF;
+  --c-primary-dark: #F43F5E;
+  --c-success: #10B981;
+  --c-warning: #FDE68A;
+  --c-danger: #EF4444;
+
+  /* 辅色 */
+  --c-accent: #38BDF8;
+  --c-accent-2: #FDE68A;
+
+  /* 描边墨 - 糖果色不廉价的关键 */
+  --c-ink: #1F2430;
+
+  /* 背景 */
+  --c-bg: #FFFDFA;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #FFF5F5;
+
+  /* 文本 */
+  --c-text: #1F2430;
+  --c-text-2: #4A5060;
+  --c-text-3: #8890A0;
+
+  /* 描边 - 墨色 */
+  --c-line: #E0E3E8;
+  --c-line-2: #ECEEF2;
+
+  /* 侧栏 */
+  --c-sidebar-bg: #FFFDFA;
+  --c-sidebar-bg-gradient: none;
+  --c-sidebar-text: #4A5060;
+  --c-sidebar-text-hover: #FB7185;
+  --c-sidebar-active-text: #FB7185;
+  --c-sidebar-active-bg: #FFF0F3;
+  --c-sidebar-border: #E0E3E8;
+
+  /* 导航栏 */
+  --c-navbar-bg: #FFFFFF;
+  --c-navbar-border: #E0E3E8;
+  --c-navbar-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+  --c-navbar-text: #1F2430;
+
+  /* 卡片 - 实心色块 */
+  --c-card-bg: #FFFFFF;
+  --c-card-border: 2px solid #1F2430;
+  --c-card-shadow: 4px 4px 0 #1F2430;
+  --c-card-shadow-hover: 6px 6px 0 #1F2430;
+  --radius-lg: 16px;
+
+  /* 表格 */
+  --c-table-header-bg: #F8F9FA;
+  --c-table-row-hover: #FFF5F5;
+  --c-table-border: #E0E3E8;
+  --c-table-stripe: #FFFDFA;
+
+  /* 输入框 */
+  --c-input-bg: #FFFFFF;
+  --c-input-border: 2px solid #1F2430;
+  --c-input-border-focus: #FB7185;
+
+  /* 按钮 - 硬阴影 */
+  --c-btn-primary-shadow: 3px 3px 0 #1F2430;
+
+  /* 装饰 */
+  --c-glow-1: rgba(251, 113, 133, 0.1);
+  --c-glow-2: rgba(56, 189, 248, 0.08);
+  --c-glow-3: rgba(253, 230, 138, 0.08);
+  --c-accent-gradient: linear-gradient(135deg, #FB7185, #38BDF8);
+}
+
+/* 硬阴影效果 */
+[data-theme="candy-pop"] .page-container,
+[data-theme="candy-pop"] .card {
+  border: 2px solid #1F2430;
+  box-shadow: 4px 4px 0 #1F2430;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+[data-theme="candy-pop"] .page-container:hover,
+[data-theme="candy-pop"] .card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 #1F2430;
+}
+
+/* 主按钮硬阴影 */
+[data-theme="candy-pop"] .el-button--primary {
+  border: 2px solid #1F2430;
+  box-shadow: 3px 3px 0 #1F2430;
+}
+
+[data-theme="candy-pop"] .el-button--primary:hover {
+  box-shadow: 5px 5px 0 #1F2430;
+}
+
+/* 激活导航 */
+[data-theme="candy-pop"] .el-menu-item.is-active {
+  background: #FFF0F3;
+  border-left: 3px solid #FB7185;
+  color: #FB7185;
+  font-weight: 800;
+}
+
+/* 统计卡 - 四色实心块 */
+[data-theme="candy-pop"] .stat-card:nth-child(1) { background: #FED7AA; }
+[data-theme="candy-pop"] .stat-card:nth-child(2) { background: #FBCFE8; }
+[data-theme="candy-pop"] .stat-card:nth-child(3) { background: #BAE6FD; }
+[data-theme="candy-pop"] .stat-card:nth-child(4) { background: #FEF08A; }
+
+/* 粗体字重 */
+[data-theme="candy-pop"] h1,
+[data-theme="candy-pop"] h2,
+[data-theme="candy-pop"] h3 {
+  font-weight: 900;
+}

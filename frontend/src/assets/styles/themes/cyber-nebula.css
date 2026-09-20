@@ -1,0 +1,158 @@
+/**
+ * 方案5 · Cyber Nebula 赛博星云 ★ 暗色首选
+ * 暗色主题 - 青紫霓虹 + 流光边框 + 扫描线
+ */
+
+[data-theme="cyber-nebula"] {
+  /* 主色 - 霓虹青 */
+  --c-primary: #22D3EE;
+  --c-primary-light: #67E8F9;
+  --c-primary-dark: #06B6D4;
+  --c-success: #34D399;
+  --c-warning: #FBBF24;
+  --c-danger: #F43F5E;
+
+  /* 辅色 - 霓虹紫 */
+  --c-accent: #A855F7;
+  --c-accent-light: #C084FC;
+
+  /* 背景 - 深空 */
+  --c-bg: #05070D;
+  --c-bg-2: #0A0E1A;
+  --c-surface: rgba(255, 255, 255, 0.03);
+  --c-surface-2: rgba(255, 255, 255, 0.05);
+
+  /* 文本 */
+  --c-text: #E2E8F0;
+  --c-text-2: #94A3B8;
+  --c-text-3: #64748B;
+
+  /* 描边 */
+  --c-line: rgba(34, 211, 238, 0.12);
+  --c-line-2: rgba(255, 255, 255, 0.06);
+
+  /* 侧栏 - 半透明毛玻璃 */
+  --c-sidebar-bg: rgba(5, 7, 13, 0.9);
+  --c-sidebar-bg-gradient: linear-gradient(180deg, rgba(34, 211, 238, 0.05) 0%, rgba(168, 85, 247, 0.03) 50%, rgba(5, 7, 13, 0.95) 100%);
+  --c-sidebar-text: #94A3B8;
+  --c-sidebar-text-hover: #22D3EE;
+  --c-sidebar-active-text: #22D3EE;
+  --c-sidebar-active-bg: rgba(34, 211, 238, 0.1);
+  --c-sidebar-border: rgba(34, 211, 238, 0.08);
+
+  /* 导航栏 */
+  --c-navbar-bg: rgba(5, 7, 13, 0.85);
+  --c-navbar-border: rgba(34, 211, 238, 0.08);
+  --c-navbar-text: #E2E8F0;
+
+  /* 卡片 - 玻璃面板 */
+  --c-card-bg: rgba(255, 255, 255, 0.03);
+  --c-card-border: rgba(34, 211, 238, 0.1);
+  --c-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --c-card-shadow-hover: 0 8px 32px rgba(34, 211, 238, 0.1);
+  --radius-lg: 15px;
+
+  /* 毛玻璃 */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-blur: 14px;
+  --glass-border: rgba(34, 211, 238, 0.1);
+
+  /* 表格 */
+  --c-table-header-bg: rgba(34, 211, 238, 0.04);
+  --c-table-row-hover: rgba(34, 211, 238, 0.06);
+  --c-table-border: rgba(34, 211, 238, 0.08);
+
+  /* 输入框 */
+  --c-input-bg: rgba(255, 255, 255, 0.03);
+  --c-input-border: rgba(34, 211, 238, 0.12);
+  --c-input-border-focus: #22D3EE;
+
+  /* 装饰光晕 */
+  --c-glow-1: rgba(34, 211, 238, 0.12);
+  --c-glow-2: rgba(168, 85, 247, 0.1);
+  --c-glow-3: rgba(244, 63, 94, 0.08);
+  --c-accent-gradient: linear-gradient(135deg, #22D3EE, #A855F7);
+}
+
+/* 毛玻璃效果 */
+[data-theme="cyber-nebula"] .sidebar,
+[data-theme="cyber-nebula"] .navbar {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* 激活导航 */
+[data-theme="cyber-nebula"] .el-menu-item.is-active {
+  background: rgba(34, 211, 238, 0.1);
+  border-left: 3px solid #22D3EE;
+  color: #22D3EE;
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
+}
+
+/* 扫描线效果 */
+[data-theme="cyber-nebula"]::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(34, 211, 238, 0.015) 2px,
+    rgba(34, 211, 238, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanline 7s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* 流光边框 */
+[data-theme="cyber-nebula"] .ring {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  overflow: hidden;
+}
+
+[data-theme="cyber-nebula"] .ring::before {
+  content: "";
+  position: absolute;
+  inset: -70%;
+  background: conic-gradient(
+    transparent 0%,
+    #22D3EE 11%,
+    #A855F7 19%,
+    #F43F5E 27%,
+    transparent 38%
+  );
+  animation: spin 6s linear infinite;
+}
+
+[data-theme="cyber-nebula"] .ring-in {
+  position: relative;
+  border-radius: calc(var(--radius-lg) - 1px);
+  background: var(--c-surface);
+  padding: 16px 18px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 状态灯呼吸脉冲 */
+[data-theme="cyber-nebula"] .status-dot {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}

@@ -11,6 +11,7 @@ spring:
       continue-on-error: true
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
+      encoding: UTF-8
 
 # MyBatis-Plus for SQLite
 mybatis-plus:

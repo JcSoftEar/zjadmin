@@ -1,0 +1,86 @@
+/**
+ * 方案4 · 深色玻璃拟态（Dark Glass）
+ * 暗色主题 - 毛玻璃 + 渐变光晕
+ */
+
+[data-theme="dark-glass"] {
+  /* 主色 - Indigo→Violet渐变 */
+  --c-primary: #6366F1;
+  --c-primary-light: #818CF8;
+  --c-primary-dark: #4F46E5;
+  --c-success: #34D399;
+  --c-warning: #FBBF24;
+  --c-danger: #F87171;
+
+  /* 背景 - 深空 */
+  --c-bg: #0B0F1A;
+  --c-bg-2: #111827;
+  --c-surface: rgba(255, 255, 255, 0.045);
+  --c-surface-2: rgba(255, 255, 255, 0.06);
+
+  /* 文本 */
+  --c-text: #F1F5F9;
+  --c-text-2: #94A3B8;
+  --c-text-3: #64748B;
+
+  /* 描边 */
+  --c-line: rgba(255, 255, 255, 0.08);
+  --c-line-2: rgba(255, 255, 255, 0.05);
+
+  /* 侧栏 - 毛玻璃 */
+  --c-sidebar-bg: rgba(11, 15, 26, 0.85);
+  --c-sidebar-bg-gradient: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(11, 15, 26, 0.95) 100%);
+  --c-sidebar-text: #94A3B8;
+  --c-sidebar-text-hover: #F1F5F9;
+  --c-sidebar-active-text: #818CF8;
+  --c-sidebar-active-bg: rgba(99, 102, 241, 0.15);
+  --c-sidebar-border: rgba(255, 255, 255, 0.06);
+
+  /* 导航栏 - 毛玻璃 */
+  --c-navbar-bg: rgba(11, 15, 26, 0.8);
+  --c-navbar-border: rgba(255, 255, 255, 0.06);
+  --c-navbar-text: #F1F5F9;
+
+  /* 卡片 - 玻璃面板 */
+  --c-card-bg: rgba(255, 255, 255, 0.045);
+  --c-card-border: rgba(255, 255, 255, 0.08);
+  --c-card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --c-card-shadow-hover: 0 12px 40px rgba(99, 102, 241, 0.15);
+  --radius-lg: 16px;
+
+  /* 毛玻璃效果 */
+  --glass-bg: rgba(255, 255, 255, 0.045);
+  --glass-blur: 12px;
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* 表格 */
+  --c-table-header-bg: rgba(255, 255, 255, 0.03);
+  --c-table-row-hover: rgba(99, 102, 241, 0.08);
+  --c-table-border: rgba(255, 255, 255, 0.06);
+
+  /* 输入框 */
+  --c-input-bg: rgba(255, 255, 255, 0.04);
+  --c-input-border: rgba(255, 255, 255, 0.1);
+  --c-input-border-focus: #6366F1;
+
+  /* 装饰光晕 */
+  --c-glow-1: rgba(99, 102, 241, 0.15);
+  --c-glow-2: rgba(139, 92, 246, 0.12);
+  --c-glow-3: rgba(56, 189, 248, 0.1);
+  --c-accent-gradient: linear-gradient(135deg, #6366F1, #8B5CF6);
+}
+
+/* 毛玻璃效果 */
+[data-theme="dark-glass"] .sidebar,
+[data-theme="dark-glass"] .navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* 激活导航使用渐变描边胶囊 */
+[data-theme="dark-glass"] .el-menu-item.is-active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15));
+  border-radius: 8px;
+  margin: 4px 8px;
+  width: calc(100% - 16px);
+}

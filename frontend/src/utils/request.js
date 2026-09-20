@@ -41,6 +41,8 @@ request.interceptors.response.use(
         ElMessage.error('登录已过期，请重新登录')
       } else if (status === 403) {
         ElMessage.error('无权限访问')
+      } else if (status === 502) {
+        ElMessage.error('网络异常，请检查网络连接后重试')
       } else if (status === 500) {
         ElMessage.error('服务器错误')
       }

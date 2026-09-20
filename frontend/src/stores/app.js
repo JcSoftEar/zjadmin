@@ -10,12 +10,24 @@ export const useAppStore = defineStore('app', {
       site_icp: '',
       site_copyright: 'Copyright © 2026 ZJAdmin. All rights reserved.'
     },
-    configLoaded: false
+    configLoaded: false,
+    currentTheme: localStorage.getItem('zjadmin-theme') || 'classic-deep'
   }),
 
   actions: {
     toggleSidebar() {
       this.sidebarCollapsed = !this.sidebarCollapsed
+    },
+
+    setTheme(themeId) {
+      this.currentTheme = themeId
+      document.documentElement.setAttribute('data-theme', themeId)
+      localStorage.setItem('zjadmin-theme', themeId)
+    },
+
+    initTheme() {
+      const saved = localStorage.getItem('zjadmin-theme') || 'classic-deep'
+      this.setTheme(saved)
     },
 
     async fetchConfig() {
